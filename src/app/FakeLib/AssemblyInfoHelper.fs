@@ -218,6 +218,7 @@ let AssemblyInfoReplacementDefaults =
       AssemblyInformationalVersion = null 
       AssemblyMetadata = [] }
 
+[<Obsolete("Please use the new AssemblyInfoFile tasks")>]
 let ReplaceAssemblyInfoVersions param = 
     let (parameters : AssemblyInfoReplacementParams) = param AssemblyInfoReplacementDefaults
     
