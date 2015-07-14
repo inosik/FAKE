@@ -230,6 +230,7 @@ let CreateVisualBasicAssemblyInfo outputFileName attributes =
 let CreateCppCliAssemblyInfo outputFileName attributes =
     CreateCppCliAssemblyInfoWithConfig outputFileName attributes AssemblyInfoFileConfig.Default
 
+/// Replaces attribute values in the AssemblyInfo file with the given values, then saves the file.
 let ReplaceAssemblyInfoAttributes assemblyInfoFileName attributes =
     let replaceAttribute (attr : Attribute) line =
         let attributeName = attr.Name
