@@ -229,3 +229,17 @@ let CreateVisualBasicAssemblyInfo outputFileName attributes =
 ///  Creates a C++/CLI AssemblyInfo file with the given attributes.
 let CreateCppCliAssemblyInfo outputFileName attributes =
     CreateCppCliAssemblyInfoWithConfig outputFileName attributes AssemblyInfoFileConfig.Default
+
+let ReplaceAssemblyInfoAttributes assemblyInfoFileName attributes =
+    let replaceAttribute (attr : Attribute) line =
+        let attributeName = attr.Name
+        let value = attr.Value
+        if isNullOrEmpty value then line
+        else regex_replace (sprintf "%s\\s*[(][^)]*[)]" attributeName) (sprintf "%s(%s)" attributeName value) line
+
+    let replaceLine attributes line = List.foldBack replaceAttribute attributes line
+
+    ReadFile assemblyInfoFileName
+    |> Seq.map (replaceLine attributes)
+    |> Seq.toList // break laziness
+    |> WriteFile assemblyInfoFileName
