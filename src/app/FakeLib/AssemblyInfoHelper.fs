@@ -1,4 +1,3 @@
-﻿[<AutoOpen>]
 /// Generates an AssemblyInfo file
 module Fake.AssemblyInfoHelper
 
